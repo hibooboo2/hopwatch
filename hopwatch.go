@@ -42,7 +42,7 @@ var (
 	hopwatchBreakParam = flag.Bool("hopwatch.break", true, "do not suspend the program if Break(..) is called")
 
 	hopwatchEnabled            = true
-	hopwatchOpenEnabled        = true
+	hopwatchOpenEnabled        = false
 	hopwatchBreakEnabled       = true
 	hopwatchHost               = "localhost"
 	hopwatchPort         int64 = 23456
@@ -149,7 +149,16 @@ func listen() {
 // As soon as a command is received the receiveLoop is started.
 func connectHandler(ws *websocket.Conn) {
 	if currentWebsocket != nil {
-		log.Printf("[hopwatch] already connected to a debugger; Ignore this\n")
+		currentWebsocket.Close()
+		currentWebsocket = ws
+		var cmd command
+		if err := websocket.JSON.Receive(currentWebsocket, &cmd); err != nil {
+			log.Printf("[hopwatch] connectHandler.JSON.Receive failed:%v", err)
+		} else {
+			log.Printf("[hopwatch] connected to browser. ready to hop")
+			connectChannel <- cmd
+			receiveLoop()
+		}
 		return
 	}
 	// remember the connection for the sendLoop

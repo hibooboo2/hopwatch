@@ -12,6 +12,7 @@ import (
 func js(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "text/javascript")
 	io.WriteString(w, `
+	console.log("[hopwatch] attempting to connect to websocket")
 	var wsUri = "ws://" + window.location.hostname + ":" + window.location.port + "/hopwatch";
 	var output;
 	var websocket = new WebSocket(wsUri);	
@@ -20,20 +21,25 @@ func js(w http.ResponseWriter, req *http.Request) {
 	var golineSize = 18;
 	
 	function init() {
+		console.log("[hopwatch] initting")
 		output = document.getElementById("output");
 		setupWebSocket();
 	}
 	function setupWebSocket() {		
+		console.log("[hopwatch] setting up websocket")
 		websocket.onopen = function(evt) { onOpen(evt) };
 		websocket.onclose = function(evt) { onClose(evt) };
 		websocket.onmessage = function(evt) { onMessage(evt) };
 		websocket.onerror = function(evt) { onError(evt) };
+		websocket.onopen()
 	}
 	function onOpen(evt) {
 		connected = true;
 		document.getElementById("disconnect").className = "buttonEnabled";
 		writeToScreen("<-> connected","info mono");		
+		console.log("[hopwatch] connect");
 		sendConnected();
+		console.log("[hopwatch] connected");
 	}
 	function onClose(evt) {
 		handleDisconnected();
@@ -42,11 +48,11 @@ func js(w http.ResponseWriter, req *http.Request) {
  		try {
             var cmd = JSON.parse(evt.data);
         } catch (e) {
-            console.log('[hopwatch] failed to read valid JSON: ', message.data);
+            console.log("[hopwatch] failed to read valid JSON: ", message.data);
             return;
         }		
-        // console.log("[hopwatch] received: " + evt.data);
-        if (cmd.Action == "display") {
+		console.log("[hopwatch] received: " + evt.data);
+		if (cmd.Action == "display") {
         	var logdiv = document.createElement("div");
 			logdiv.className = "logline"
         	addTime(logdiv);
@@ -266,12 +272,17 @@ func js(w http.ResponseWriter, req *http.Request) {
 		writeToScreen(">-< disconnected","info mono");	
 	}
 	function timeHHMMSS()    { return new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1"); }
-	function sendConnected() { doSend('{"Action":"connected"}'); }
+	function sendConnected() { 
+		console.log("[hopwatch] sendConnected start");
+		doSend('{"Action":"connected"}'); 
+		console.log("[hopwatch] sendConnected done");
+	}
 	function sendResume()    { doSend('{"Action":"resume"}'); }
 	function sendQuit()      { doSend('{"Action":"quit"}'); }	
 	function doSend(message) {
-		// console.log("[hopwatch] send: " + message);
+		console.log("[hopwatch] send: " + message);
 		websocket.send(message);
+		console.log("[hopwatch] sent: " + message);
 	}
 	window.addEventListener("load", init, false);
 	window.addEventListener("keydown", handleKeyDown, true); `)
