@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/emicklei/hopwatch"
+	"github.com/hibooboo2/hopwatch"
 )
 
 func waitHere() {

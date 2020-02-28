@@ -16,10 +16,10 @@ Usage:
 
 	import (
 		// use a tag
-		"gopkg.in/emicklei/hopwatch.v1"
+		"gopkg.in/hibooboo2/hopwatch.v1"
 
 		// or use the master
-		// "github.com/emicklei/hopwatch"
+		// "github.com/hibooboo2/hopwatch"
 	)
 
 	func foo() {
@@ -60,15 +60,15 @@ Flags:
 
 Install from master:
 
-	go get -u github.com/emicklei/hopwatch
+	go get -u github.com/hibooboo2/hopwatch
 
 or from a tag:
 
-	go get gopkg.in/emicklei/hopwatch.v1
+	go get gopkg.in/hibooboo2/hopwatch.v1
 
 Resources:
 
-	https://github.com/emicklei/hopwatch (project)
+	https://github.com/hibooboo2/hopwatch (project)
 	http://ernestmicklei.com/2012/12/14/hopwatch-a-debugging-tool-for-go/  (blog)
 
 

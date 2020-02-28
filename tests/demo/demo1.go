@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/emicklei/hopwatch"
-	"time"
 	"os"
+	"time"
+
+	"github.com/hibooboo2/hopwatch"
 )
 
 func main() {
@@ -12,7 +13,7 @@ func main() {
 
 func haveABreak() {
 	hopwatch.Break()
-	printNow()	
+	printNow()
 }
 
 func printNow() {

@@ -1,4 +1,4 @@
-module github.com/emicklei/hopwatch
+module github.com/hibooboo2/hopwatch
 
 require (
 	github.com/davecgh/go-spew v1.1.0

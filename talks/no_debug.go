@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/emicklei/hopwatch"
 	"math"
+
+	"github.com/hibooboo2/hopwatch"
 )
 
 func main() {

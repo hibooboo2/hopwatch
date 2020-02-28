@@ -28,7 +28,7 @@ func html(w http.ResponseWriter, req *http.Request) {
 			<div id="menu">
 				<a id="resume" class="buttonDisabled" href="javascript:actionResume();">F8 - Resume</a>
 				<a id="disconnect" class="buttonDisabled" href="javascript:actionDisconnect();">Disconnect</a>
-				<a class="buttonEnabled" href="http://godoc.org/github.com/emicklei/hopwatch" target="_blank">About</a>
+				<a class="buttonEnabled" href="http://godoc.org/github.com/hibooboo2/hopwatch" target="_blank">About</a>
 			</div>
 		</div>
 	</div>
@@ -44,7 +44,7 @@ func html(w http.ResponseWriter, req *http.Request) {
 		</div>
 	</div>
 	<div id="footer">
-		&copy; 2012-2013. <a href="http://github.com/emicklei/hopwatch" target="_blank">hopwatch on github.com</a>
+		&copy; 2012-2013. <a href="http://github.com/hibooboo2/hopwatch" target="_blank">hopwatch on github.com</a>
 	</div>
 </body>
 </html>
